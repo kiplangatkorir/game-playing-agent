@@ -13,12 +13,18 @@ class TicTacToe:
         return self.board
 
     def available_actions(self):
-        return [(i, j) for i in range(3) for j in range(3) if self.board[i, j] == 0]
+        actions = []
+        for i in range(3):
+            for j in range(3):
+                if self.board[i, j] == 0:
+                    actions.append((i, j))
+        return actions
 
     def step(self, action, player):
         if self.done:
             raise Exception("Game is already over")
-        if self.board[action] != 0:
+
+        if action not in self.available_actions():
             raise Exception("Invalid move")
 
         self.board[action] = player
@@ -39,4 +45,3 @@ class TicTacToe:
 
     def render(self):
         print(self.board)
-
